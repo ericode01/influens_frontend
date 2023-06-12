@@ -37,7 +37,7 @@ function Overview() {
   return (
     <OverviewWrapper>
       <Head>
-        <title>Tokyo Free White NextJS Javascript Admin Dashboard</title>
+        <title>Influens</title>
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
@@ -53,11 +53,11 @@ function Overview() {
               <Box>
                 <Button
                   component={Link}
-                  href="/dashboards/crypto"
+                  href="/api/auth/signin"
                   variant="contained"
                   sx={{ ml: 2 }}
                 >
-                  Live Preview
+                  Sign in
                 </Button>
               </Box>
             </Box>
@@ -65,7 +65,7 @@ function Overview() {
         </Container>
       </HeaderWrapper>
       <Hero />
-      <Container maxWidth="lg" sx={{ mt: 8 }}>
+      {/* <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Typography textAlign="center" variant="subtitle1">
           Crafted by{' '}
           <Link
@@ -76,7 +76,7 @@ function Overview() {
             BloomUI.com
           </Link>
         </Typography>
-      </Container>
+      </Container> */}
     </OverviewWrapper>
   );
 }
