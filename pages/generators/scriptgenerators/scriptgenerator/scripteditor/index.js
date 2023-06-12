@@ -45,7 +45,7 @@ function ScriptEditor({ data }) {
 
     const handleGenerateScriptsClick = (e) => {
 
-        fetch('http://127.0.0.1:5000/generate_script_options', {
+        fetch(process.env.PROD_INFLUENS_BACKEND+'generate_script_options', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ function ScriptEditor({ data }) {
 
     const handleSaveClick = (status) => {
 
-        fetch('http://127.0.0.1:5000/edit_script', {
+        fetch(process.env.PROD_INFLUENS_BACKEND+'edit_script', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -224,7 +224,7 @@ export async function getServerSideProps(context) {
       }
 
     // Fetch data from external API
-    const res = await fetch("http://127.0.0.1:5000/get_recent_script/" + context.query.recentscriptid);
+    const res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_recent_script/" + context.query.recentscriptid);
     const data = await res.json();
 
     // Pass data to the page via props

@@ -45,7 +45,7 @@ function ScriptCreator() {
 
     const handleGenerateScriptsClick = (e) => {
 
-        fetch('http://127.0.0.1:5000/generate_script_options', {
+        fetch(process.env.PROD_INFLUENS_BACKEND+'generate_script_options', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ function ScriptCreator() {
 
     const handleSaveClick = (status) => {
 
-        fetch('http://127.0.0.1:5000/add_new_script', {
+        fetch(process.env.PROD_INFLUENS_BACKEND+'add_new_script', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

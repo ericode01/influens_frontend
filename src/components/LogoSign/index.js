@@ -118,7 +118,7 @@ function Logo() {
             {/* <LogoSign>
               <LogoSignInner />
             </LogoSign> */}
-            <img src="/static/images/avatars/1.jpg" alt="bug" height={50} />
+            <img src="/static/images/avatars/whale.gif" alt="bug" height={50} />
           </LogoSignWrapper>
         </Badge>
       </LogoWrapper>

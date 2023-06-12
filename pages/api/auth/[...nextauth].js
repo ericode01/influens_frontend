@@ -33,7 +33,7 @@ export const authOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch("http://127.0.0.1:5000/signin", {
+        const res = await fetch(process.env.PROD_INFLUENS_BACKEND + "signin", {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }

@@ -74,10 +74,10 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch data from external API
-  const res = await fetch("http://127.0.0.1:5000/get_recent_scripts/"+context.query.scriptgeneratorid);
+  const res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_recent_scripts/"+context.query.scriptgeneratorid);
   const data = await res.json();
 
-  const get_script_generator_name_res = await fetch("http://127.0.0.1:5000/get_script_generator_name/"+context.query.scriptgeneratorid);
+  const get_script_generator_name_res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_script_generator_name/"+context.query.scriptgeneratorid);
   const script_generator_name_json = await get_script_generator_name_res.json();
 
   const script_generator_name=script_generator_name_json["script_generator_name"];

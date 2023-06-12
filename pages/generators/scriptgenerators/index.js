@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch data from external API
-  const res = await fetch("http://127.0.0.1:5000/get_script_generators/"+session.user.user_id)
+  const res = await fetch(process.env.PROD_INFLUENS_BACKEND + "get_script_generators/"+session.user.user_id)
   const data = await res.json()
 
   // Pass data to the page via props
