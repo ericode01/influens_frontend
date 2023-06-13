@@ -21,6 +21,7 @@ const HeaderWrapper = styled(Card)(
   align-items: center;
   height: ${theme.spacing(10)};
   margin-bottom: ${theme.spacing(10)};
+  background-color: rgba(255, 255, 255, 0.12);
 `
 );
 
@@ -39,6 +40,25 @@ function Overview() {
       <Head>
         <title>Influens</title>
       </Head>
+      <video
+        aria-hidden="true"
+        muted
+        autoPlay
+        loop
+        playsInline
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+      >
+        <source src="https://influensblob.blob.core.windows.net/influensblob/ink_short4.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <Box position="relative">
       <HeaderWrapper>
         <Container maxWidth="lg">
           <Box display="flex" alignItems="center">
@@ -55,7 +75,7 @@ function Overview() {
                   component={Link}
                   href="/api/auth/signin"
                   variant="contained"
-                  sx={{ ml: 2 }}
+                  sx={{ ml: 2, minWidth: 180 }}
                 >
                   Sign in
                 </Button>
@@ -64,7 +84,10 @@ function Overview() {
           </Box>
         </Container>
       </HeaderWrapper>
+      
       <Hero />
+      </Box>
+      
       {/* <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Typography textAlign="center" variant="subtitle1">
           Crafted by{' '}

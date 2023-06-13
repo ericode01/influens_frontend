@@ -21,8 +21,8 @@ const LogoWrapper = styled(Link)(
 
 const LogoSignWrapper = styled(Box)(
   () => `
-        width: 52px;
-        height: 38px;
+        width: 80px;
+        height: 80px;
 `
 );
 
@@ -106,8 +106,8 @@ function Logo() {
           sx={{
             '.MuiBadge-badge': {
               fontSize: theme.typography.pxToRem(11),
-              right: -10,
-              top: 8
+              right: -8,
+              top: 16
             }
           }}
           overlap="circular"
@@ -118,7 +118,7 @@ function Logo() {
             {/* <LogoSign>
               <LogoSignInner />
             </LogoSign> */}
-            <img src="/static/images/avatars/whale.gif" alt="bug" height={50} />
+            <img src="/static/images/logo/logo-transperant-xs.png" alt="Influens logo" height={80} />
           </LogoSignWrapper>
         </Badge>
       </LogoWrapper>

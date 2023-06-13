@@ -105,21 +105,20 @@ function Hero() {
         container
       >
         <Grid item md={10} lg={8} mx="auto">
-          <LabelWrapper color="success">Version 1.0.0</LabelWrapper>
-          <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Tokyo Free White Next.js Javascript Admin Dashboard
+          <LabelWrapper color="success">Preview</LabelWrapper>
+          <TypographyH1 sx={{ mb: 2 }} variant="h1" color={'white'}>
+            Influens social media content creator platform
           </TypographyH1>
           <TypographyH2
             sx={{ lineHeight: 1.5, pb: 4 }}
             variant="h4"
             color="text.secondary"
             fontWeight="normal"
+            style={{ color: '#f0f0f0' }}
           >
-            High performance React template built with lots of powerful
-            Material-UI components across multiple product niches for fast &
-            perfect apps development processes
+            Streamline and transform social media content creation process, powered by AI
           </TypographyH2>
-          <Button
+          {/* <Button
             component={Link}
             href="/dashboards/crypto"
             size="large"
@@ -132,13 +131,13 @@ function Hero() {
             component="a"
             target="_blank"
             rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-white-react-nextjs-javascript-material-ui-admin-dashboard"
+            href="https://bloomui.com/product/tokyo-free-white-nextjs-javascript-material-ui-admin-dashboard/"
             size="large"
             variant="text"
           >
             Key Features
-          </Button>
-          <Grid container spacing={3} mt={5}>
+          </Button> */}
+          {/* <Grid container spacing={3} mt={5}>
             <Grid item md={4}>
               <MuiAvatar>
                 <img
@@ -187,7 +186,7 @@ function Hero() {
                 </Typography>
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Container>
