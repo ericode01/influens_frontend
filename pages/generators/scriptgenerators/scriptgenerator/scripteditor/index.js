@@ -25,7 +25,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "pages/api/auth/[...nextauth]"
 
 
-function ScriptEditor({ data }) {
+function ScriptEditor({ data, session, endpoint }) {
     const [productName, setProductName] = useState(data["product_name"]);
     const [keywordsDesc, setkeywordsDesc] = useState(data["keywords_desc"]);
     const [script, setScript] = useState(data["script"]);
@@ -43,9 +43,9 @@ function ScriptEditor({ data }) {
         setScript(e.target.value);
     }
 
-    const handleGenerateScriptsClick = (e) => {
+    const handleGenerateScriptsClick = (endpoint) => {
 
-        fetch(process.env.PROD_INFLUENS_BACKEND+'generate_script_options', {
+        fetch(endpoint + 'generate_script_options', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,9 +61,9 @@ function ScriptEditor({ data }) {
             .catch((err) => console.log('error'));
     }
 
-    const handleSaveClick = (status) => {
+    const handleSaveClick = (status, endpoint) => {
 
-        fetch(process.env.PROD_INFLUENS_BACKEND+'edit_script', {
+        fetch(endpoint + 'edit_script', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -166,13 +166,13 @@ function ScriptEditor({ data }) {
                                                 helperText="Click the Generate scripts button below to generate three script options and edit in the text box above"
                                             />
                                         </div>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="success" onClick={handleGenerateScriptsClick}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="success" onClick={() => handleGenerateScriptsClick(endpoint)}>
                                             Generate scripts
                                         </Button>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="warning" onClick={() => handleSaveClick("INPROGRESS")}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="warning" onClick={() => handleSaveClick("INPROGRESS", endpoint)}>
                                             Save as In Progress
                                         </Button>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="primary" onClick={() => handleSaveClick("COMPLETED")}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="primary" onClick={() => handleSaveClick("COMPLETED", endpoint)}>
                                             Save as Completed
                                         </Button>
                                         <Button sx={{ margin: 1 }} variant="contained" color="error" onClick={handleExitWithoutSave}>
@@ -213,22 +213,26 @@ export async function getServerSideProps(context) {
         context.req,
         context.res,
         authOptions)
-    
-      if (!session) {
+
+    if (!session) {
         return {
-          redirect: {
-            destination: '/api/auth/signin',
-            permanent: false,
-          },
+            redirect: {
+                destination: '/api/auth/signin',
+                permanent: false,
+            },
         }
-      }
+    }
 
     // Fetch data from external API
-    const res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_recent_script/" + context.query.recentscriptid);
+    const url = process.env.PROD == "true" ? process.env.PROD_INFLUENS_BACKEND + "get_recent_script/" + context.query.recentscriptid
+        : process.env.LOCAL_HOST + "get_recent_script/" + context.query.recentscriptid;
+    const res = await fetch(url);
     const data = await res.json();
 
+    const endpoint = process.env.PROD == "true" ? process.env.PROD_INFLUENS_BACKEND : process.env.LOCAL_HOST;
+
     // Pass data to the page via props
-    return { props: { data, session } }
+    return { props: { data, session, endpoint } }
 }
 
 ScriptEditor.getLayout = (page) => (

@@ -13,6 +13,7 @@ import Head from 'next/head';
 
 import Logo from 'src/components/LogoSign';
 import Hero from 'src/content/Overview/Hero';
+import { signIn } from "next-auth/react";
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `
@@ -72,10 +73,9 @@ function Overview() {
               <Box />
               <Box>
                 <Button
-                  component={Link}
-                  href="/api/auth/signin"
                   variant="contained"
                   sx={{ ml: 2, minWidth: 180 }}
+                  onClick={() => signIn(undefined, { callbackUrl: "/generators/scriptgenerators" })}
                 >
                   Sign in
                 </Button>

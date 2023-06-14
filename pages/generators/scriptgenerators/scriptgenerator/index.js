@@ -21,7 +21,7 @@ function ScriptGenerator({ data, script_generator_name }) {
         <title>Recent srcipts</title>
       </Head>
       <PageTitleWrapper>
-        <PageHeader scriptgeneratorid={router.query.scriptgeneratorid} script_generator_name={script_generator_name}/>
+        <PageHeader scriptgeneratorid={router.query.scriptgeneratorid} script_generator_name={script_generator_name} />
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
@@ -74,16 +74,20 @@ export async function getServerSideProps(context) {
   }
 
   // Fetch data from external API
-  const res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_recent_scripts/"+context.query.scriptgeneratorid);
+  const url1 = process.env.PROD == "true" ? process.env.PROD_INFLUENS_BACKEND + "get_recent_scripts/" + context.query.scriptgeneratorid
+    : process.env.LOCAL_HOST + "get_recent_scripts/" + context.query.scriptgeneratorid;
+  const res = await fetch(url1);
   const data = await res.json();
 
-  const get_script_generator_name_res = await fetch(process.env.PROD_INFLUENS_BACKEND+"get_script_generator_name/"+context.query.scriptgeneratorid);
+  const url2 = process.env.PROD == "true" ? process.env.PROD_INFLUENS_BACKEND + "get_script_generator_name/" + context.query.scriptgeneratorid
+    : process.env.LOCAL_HOST + "get_script_generator_name/" + context.query.scriptgeneratorid;
+  const get_script_generator_name_res = await fetch(url2);
   const script_generator_name_json = await get_script_generator_name_res.json();
 
-  const script_generator_name=script_generator_name_json["script_generator_name"];
+  const script_generator_name = script_generator_name_json["script_generator_name"];
 
   // Pass data to the page via props
-  return { props: { data,  script_generator_name, session} }
+  return { props: { data, script_generator_name, session } }
 }
 
 ScriptGenerator.getLayout = (page) => (

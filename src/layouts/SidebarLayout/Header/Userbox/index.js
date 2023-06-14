@@ -140,7 +140,7 @@ function HeaderUserbox() {
         </List> */}
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" onClick={() => signOut()} fullWidth>
+          <Button color="primary" onClick={() => signOut({ callbackUrl: "/" })} fullWidth>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>
