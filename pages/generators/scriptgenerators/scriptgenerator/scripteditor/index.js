@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import Footer from 'src/components/Footer';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import RecentOrders from 'src/content/Management/Transactions/RecentOrders';
 import RecentGenerators from 'src/content/Generators/ScriptGenerators/RecentGenerators';
@@ -29,6 +30,7 @@ function ScriptEditor({ data, session, endpoint }) {
     const [productName, setProductName] = useState(data["product_name"]);
     const [keywordsDesc, setkeywordsDesc] = useState(data["keywords_desc"]);
     const [script, setScript] = useState(data["script"]);
+    const [isGenerating, setIsGenerating] = useState(false);
     const router = useRouter();
 
     const handleProductNameChange = (e) => {
@@ -43,23 +45,24 @@ function ScriptEditor({ data, session, endpoint }) {
         setScript(e.target.value);
     }
 
-    const handleGenerateScriptsClick = (endpoint) => {
-
-        fetch(endpoint + 'generate_script_options', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "script_generator_id": router.query.scriptgeneratorid,
-                "product_name": productName,
-                "keywords_desc": keywordsDesc
-            }),
-        })
-            .then((res) => res.json())
-            .then((result) => setScript(result.generated_script_options))
-            .catch((err) => console.log('error'));
-    }
+    useEffect(() => {
+        if (isGenerating) {
+            fetch(endpoint + 'generate_script_options', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "script_generator_id": router.query.scriptgeneratorid,
+                    "product_name": productName,
+                    "keywords_desc": keywordsDesc
+                }),
+            })
+                .then((res) => res.json())
+                .then((result) => {setScript(result.generated_script_options); setIsGenerating(false);})
+                .catch((err) => console.log('error'));
+        }
+    }, [isGenerating]);
 
     const handleSaveClick = (status, endpoint) => {
 
@@ -166,18 +169,24 @@ function ScriptEditor({ data, session, endpoint }) {
                                                 helperText="Click the Generate scripts button below to generate three script options and edit in the text box above"
                                             />
                                         </div>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="success" onClick={() => handleGenerateScriptsClick(endpoint)}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="success" disabled={isGenerating} onClick={() => { setIsGenerating(true); }}>
                                             Generate scripts
                                         </Button>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="warning" onClick={() => handleSaveClick("INPROGRESS", endpoint)}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="warning" disabled={isGenerating} onClick={() => handleSaveClick("INPROGRESS", endpoint)}>
                                             Save as In Progress
                                         </Button>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="primary" onClick={() => handleSaveClick("COMPLETED", endpoint)}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="primary" disabled={isGenerating} onClick={() => handleSaveClick("COMPLETED", endpoint)}>
                                             Save as Completed
                                         </Button>
-                                        <Button sx={{ margin: 1 }} variant="contained" color="error" onClick={handleExitWithoutSave}>
+                                        <Button sx={{ margin: 1 }} variant="contained" color="error" disabled={isGenerating} onClick={handleExitWithoutSave}>
                                             Exit without save
                                         </Button>
+                                        {isGenerating && (
+                                            <>
+                                                <div style={{ flexGrow: 1 }} />
+                                                <CircularProgress sx={{ margin: 2 }} color="success" />
+                                            </>)
+                                        }
                                     </Box>
                                 </CardContent>
                             </Card>
