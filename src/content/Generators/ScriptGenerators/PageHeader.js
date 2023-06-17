@@ -1,4 +1,5 @@
 import { Typography, Button, Grid } from '@mui/material';
+import NextLink from 'next/link';
 
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
@@ -19,14 +20,16 @@ function PageHeader() {
         </Typography>
       </Grid>
       <Grid item>
-        <Button
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          color="success"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-        >
-          Create new script geneator
-        </Button>
+        <NextLink href={{ pathname: "/generators/scriptgenerators/scriptgeneratorcreator" }} passHref>
+          <Button
+            sx={{ mt: { xs: 2, md: 0 } }}
+            variant="contained"
+            color="success"
+            startIcon={<AddTwoToneIcon fontSize="small" />}
+          >
+            Create new script generator
+          </Button>
+        </NextLink>
       </Grid>
     </Grid>
   );

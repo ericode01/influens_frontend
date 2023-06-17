@@ -11,10 +11,10 @@ function PageHeader() {
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
         <Typography variant="h3" component="h3" gutterBottom>
-          Create script
+          Create a new script generator
         </Typography>
         <Typography variant="subtitle2">
-         Create a script for a product with the given keywords/descriptions
+         Add five example scripts so that the script generator can learn your style
         </Typography>
       </Grid>
       {/* <Grid item>
